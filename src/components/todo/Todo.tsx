@@ -3,6 +3,7 @@ import TodoForm from "./TodoForm.tsx";
 import type {TodoProps} from "../../types.ts";
 import TodoList from "./TodoList.tsx";
 import TodoStats from "./TodoStats.tsx";
+import Button from "../ui/Button.tsx";
 
 
 const Todo = () => {
@@ -36,6 +37,10 @@ const Todo = () => {
         );
     };
 
+    const clearAll = () => {
+        setTodos([]);
+    }
+
     const totalTasks = todos.length;
     const completedTasks = todos.filter(t => t.completed).length;
     const activeTasks = totalTasks - completedTasks;
@@ -55,15 +60,27 @@ const Todo = () => {
                     toggleTodo={toggleTodo}
                 />
                 {totalTasks > 0 && (
-                    // Component: TodoStats
+                    <>
+                {/*  Component: TodoStats */}
                 <TodoStats
                     total={totalTasks}
                     active={activeTasks}
                     completed={completedTasks}
                 />
+
+                {/*  Component: Clear All Button */}
+                <div className="text-end mt-4">
+                    <Button
+                    addClasses="bg-cf-dark-red"
+                    label="Clear All"
+                    onClick={clearAll}
+                    />
+                </div>
+
+                    </>
+
                 )}
 
-                {/*  Component: Button */}
             </div>
         </>
     );
