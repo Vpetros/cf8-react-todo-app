@@ -2,6 +2,7 @@ import {useRef, useState} from "react";
 import TodoForm from "./TodoForm.tsx";
 import type {TodoProps} from "../../types.ts";
 import TodoList from "./TodoList.tsx";
+import TodoStats from "./TodoStats.tsx";
 
 
 const Todo = () => {
@@ -33,7 +34,11 @@ const Todo = () => {
             todo.id === id ? {...todo, completed: !todo.completed}: todo
             )
         );
-    }
+    };
+
+    const totalTasks = todos.length;
+    const completedTasks = todos.filter(t => t.completed).length;
+    const activeTasks = totalTasks - completedTasks;
     return(
         <>
             <div className="max-w-sm mx-auto">
@@ -49,8 +54,15 @@ const Todo = () => {
                     editTodo={editTodo}
                     toggleTodo={toggleTodo}
                 />
+                {totalTasks > 0 && (
+                    // Component: TodoStats
+                <TodoStats
+                    total={totalTasks}
+                    active={activeTasks}
+                    completed={completedTasks}
+                />
+                )}
 
-                {/*  Component: TodoStats */}
                 {/*  Component: Button */}
             </div>
         </>
