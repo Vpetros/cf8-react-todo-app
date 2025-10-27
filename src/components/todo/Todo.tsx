@@ -1,4 +1,4 @@
-import {useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import TodoForm from "./TodoForm.tsx";
 import type {TodoProps} from "../../types.ts";
 import TodoList from "./TodoList.tsx";
@@ -39,11 +39,16 @@ const Todo = () => {
 
     const clearAll = () => {
         setTodos([]);
+
     }
 
     const totalTasks = todos.length;
     const completedTasks = todos.filter(t => t.completed).length;
     const activeTasks = totalTasks - completedTasks;
+
+    useEffect(() => {
+        inputRef.current?.focus();
+    },[todos])
     return(
         <>
             <div className="max-w-sm mx-auto">
